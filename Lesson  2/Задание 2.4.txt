@@ -1,0 +1,1 @@
+mysqldump --where="true limit 100" mysql > mysql_top100.sql

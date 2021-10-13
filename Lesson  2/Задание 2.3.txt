@@ -1,0 +1,5 @@
+mysqldump example > example.sql
+mysql>
+mysql> CREATE DATABASE sample;
+mysql> USE sample;
+mysql> source example.sql;
