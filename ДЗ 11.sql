@@ -1,6 +1,6 @@
--- Создайте таблицу logs типа Archive. Пусть при каждом создании записи в таблицах 
--- users, catalogs и products в таблицу logs помещается время и дата создания записи, 
--- название таблицы, идентификатор первичного ключа и содержимое поля name.
+-- РЎРѕР·РґР°Р№С‚Рµ С‚Р°Р±Р»РёС†Сѓ logs С‚РёРїР° Archive. РџСѓСЃС‚СЊ РїСЂРё РєР°Р¶РґРѕРј СЃРѕР·РґР°РЅРёРё Р·Р°РїРёСЃРё РІ С‚Р°Р±Р»РёС†Р°С… 
+-- users, catalogs Рё products РІ С‚Р°Р±Р»РёС†Сѓ logs РїРѕРјРµС‰Р°РµС‚СЃСЏ РІСЂРµРјСЏ Рё РґР°С‚Р° СЃРѕР·РґР°РЅРёСЏ Р·Р°РїРёСЃРё, 
+-- РЅР°Р·РІР°РЅРёРµ С‚Р°Р±Р»РёС†С‹, РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РїРµСЂРІРёС‡РЅРѕРіРѕ РєР»СЋС‡Р° Рё СЃРѕРґРµСЂР¶РёРјРѕРµ РїРѕР»СЏ name.
 
 
 DROP TABLE IF EXISTS logs;
@@ -11,7 +11,7 @@ CREATE TABLE logs (
 	name_table VARCHAR(50),
 	name_foreign_key VARCHAR(50),
 	name_column  VARCHAR(50)
-)COMMENT'Логирование записей'   ENGINE = Archive;
+)COMMENT'Р›РѕРіРёСЂРѕРІР°РЅРёРµ Р·Р°РїРёСЃРµР№'   ENGINE = Archive;
 
 DROP TRIGGER IF EXISTS log_users_insert;
 
@@ -21,7 +21,7 @@ FOR EACH ROW
 	  INSERT INTO logs(name_table, name_foreign_key, name_column) VALUES ('users', NEW.id, NEW.name);
 	END;
 
-INSERT INTO users (name) VALUES ('Гайя-Елена Мохийам');
+INSERT INTO users (name) VALUES ('Р“Р°Р№СЏ-Р•Р»РµРЅР° РњРѕС…РёР№Р°Рј');
 SELECT * FROM logs;
 
 SHOW TABLE STATUS LIKE 'logs';
@@ -32,7 +32,7 @@ FOR EACH ROW
 	  INSERT INTO logs(name_table, name_foreign_key, name_column) VALUES ('catalogs', NEW.id, NEW.name);
 	END;
 
-INSERT INTO catalogs (name) VALUES ('Минтад');
+INSERT INTO catalogs (name) VALUES ('РњРёРЅС‚Р°Рґ');
 SELECT * FROM logs;
 
 
@@ -42,13 +42,13 @@ FOR EACH ROW
 	  INSERT INTO logs(name_table, name_foreign_key, name_column) VALUES ('products', NEW.id, NEW.name);
 	END;
 
-INSERT INTO products (name) VALUES ('Орнитоптер');
+INSERT INTO products (name) VALUES ('РћСЂРЅРёС‚РѕРїС‚РµСЂ');
 SELECT * FROM logs;
 USE shop;
 
 
 
--- (по желанию) Создайте SQL-запрос, который помещает в таблицу users миллион записей.
+-- (РїРѕ Р¶РµР»Р°РЅРёСЋ) РЎРѕР·РґР°Р№С‚Рµ SQL-Р·Р°РїСЂРѕСЃ, РєРѕС‚РѕСЂС‹Р№ РїРѕРјРµС‰Р°РµС‚ РІ С‚Р°Р±Р»РёС†Сѓ users РјРёР»Р»РёРѕРЅ Р·Р°РїРёСЃРµР№.
 
 
 DROP PROCEDURE add_users_opt;
@@ -57,7 +57,7 @@ CREATE PROCEDURE add_users_opt(uopt INT UNSIGNED)
 		DECLARE i INT DEFAULT 0;
 		SET autocommit = 0;
 		WHILE i <= uopt DO
-			INSERT INTO users (name) VALUES ('Пол'),('Муаддиб'), ('Крис'), ('Альфия'),('Фейраута'),('Харконен'),('Джесика'),('Фрэнк'),('Атрейдес'),('Шай-Хулд');
+			INSERT INTO users (name) VALUES ('РџРѕР»'),('РњСѓР°РґРґРёР±'), ('РљСЂРёСЃ'), ('РђР»СЊС„РёСЏ'),('Р¤РµР№СЂР°СѓС‚Р°'),('РҐР°СЂРєРѕРЅРµРЅ'),('Р”Р¶РµСЃРёРєР°'),('Р¤СЂСЌРЅРє'),('РђС‚СЂРµР№РґРµСЃ'),('РЁР°Р№-РҐСѓР»Рґ');
 			SET i = i + 1;
 		END WHILE;
 		SET autocommit = 1;
@@ -70,4 +70,5 @@ CALL add_users_opt (100000);
 
 
 SELECT count(1) FROM users u ;
+ 
 
